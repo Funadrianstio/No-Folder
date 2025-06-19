@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Lens Pricing Tool</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <!-- Add Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  </head>
+  <body class="bg-light">
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-overlay">
+      <div class="login-container">
+        <div class="login-box">
+          <h2>Contact Lens Pricing Tool</h2>
+          <p>Please sign in with your Google account to access the pricing data.</p>
+          <div id="g_id_onload"
+               data-client_id="219147918064-0o5mr9m6choc5tcbvg9a3t4vohktfpdt.apps.googleusercontent.com"
+               data-callback="handleCredentialResponse"
+               data-auto_prompt="false"
+               data-origin="http://127.0.0.1:5500"
+               data-redirect_uri="http://127.0.0.1:5500">
+          </div>
+          <div class="g_id_signin"
+               data-type="standard"
+               data-size="large"
+               data-theme="outline"
+               data-text="sign_in_with"
+               data-shape="rectangular"
+               data-logo_alignment="left">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div id="main-content" class="d-none">
+      <header class="py-4 text-center">
+        <img src="Todays Vision Logo.png" alt="Today's Vision Logo" style="max-width:220px; height:auto; display:block; margin:0 auto 1rem auto;" />
+      </header>
+      <main class="container-fluid">
+        <div class="row g-4 justify-content-center">
+          <!-- Comprehensive Exam Fees -->
+          <section class="col-12">
+            <div class="card h-100 shadow-sm" aria-labelledby="examFeesTitle">
+              <div class="card-body">
+                <h2 id="examFeesTitle" class="h5 card-title mb-4"><i class="bi bi-receipt"></i> Comprehensive Exam Fees</h2>
+                <form>
+                  <div class="mb-3">
+                    <label for="exam-copay" class="form-label">Comprehensive Exam Copay</label>
+                    <input type="number" class="form-control" id="exam-copay" placeholder="0.00" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="retinal-image" class="form-label">Retinal Imaging</label>
+                    <input type="number" class="form-control" id="retinal-image" placeholder="0.00" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="additional-fees" class="form-label">Additional Fees</label>
+                    <input type="number" class="form-control" id="additional-fees" placeholder="0.00" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+          <!-- Contact Lens Fitting Fee -->
+          <section class="col-12">
+            <div class="card h-100 shadow-sm" aria-labelledby="fittingFeesTitle">
+              <div class="card-body">
+                <h2 id="fittingFeesTitle" class="h5 card-title mb-4"><i class="bi bi-cash-coin"></i> Contact Lens Fitting Fees</h2>
+                <form>
+                  <div class="mb-3">
+                    <label class="form-label">Fitting Fee</label>
+                    <div class="d-flex gap-2 mb-2" id="fitting-fee-btn-group">
+                      <button type="button" class="fitting-fee-btn" id="fitting-copay-btn">Copay</button>
+                      <button type="button" class="fitting-fee-btn" id="fitting-percent-btn">% Discount</button>
+                      <button type="button" class="fitting-fee-btn" id="fitting-dollar-btn">$ Discount</button>
+                      <button type="button" class="fitting-fee-btn" id="fitting-none-btn">None</button>
+                    </div>
+                    <input type="number" class="form-control mb-2" id="fitting-copay-input" placeholder="Enter Copay" style="display:none;" />
+                    <input type="number" class="form-control mb-2" id="fitting-percent-input" placeholder="Enter % Discount" style="display:none;" />
+                    <input type="number" class="form-control mb-2" id="fitting-dollar-input" placeholder="Enter $ Discount" style="display:none;" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="contact-lens-allowance" class="form-label">Contact Lens Allowance</label>
+                    <input type="number" class="form-control" id="contact-lens-allowance" placeholder="0.00" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="additional-savings" class="form-label">Additional Savings</label>
+                    <input type="number" class="form-control" id="additional-savings" placeholder="0.00" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="ir-training" class="form-label">I&amp;R Training</label>
+                    <input type="number" class="form-control" id="ir-training" placeholder="0.00" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+          <!-- Patient Details -->
+          <section class="col-12">
+            <div class="card h-100 shadow-sm" aria-labelledby="patientDetailsTitle">
+              <div class="card-body">
+                <h2 id="patientDetailsTitle" class="h5 card-title mb-4"><i class="bi bi-person"></i> Patient Details</h2>
+                <form>
+                  <div class="mb-3">
+                    <label class="form-label">Visit Type</label>
+                    <div class="btn-group" role="group" aria-label="Visit Type" data-group="new-est">
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="New">New</button>
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="Est">Established</button>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Payment Method</label>
+                    <div class="btn-group" role="group" aria-label="Payment Method" data-group="self-pay">
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="No">Insurance</button>
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="Yes">Self Pay</button>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Fitting Type</label>
+                    <div class="btn-group" role="group" aria-label="Fitting Type" data-group="fitting-type">
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="Sphere">Sphere</button>
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="Toric">Toric</button>
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="MF/Mono">MF/Mono</button>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">New to Brand</label>
+                    <div class="btn-group" role="group" aria-label="New to Brand" data-group="new-to-brand">
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="Yes">Yes</button>
+                      <button type="button" class="btn btn-outline-primary toggle-btn" data-value="No">No</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+          <!-- Contact Lens Selection -->
+          <section class="col-12">
+            <div class="card h-100 shadow-sm" aria-labelledby="contactLensSelectionTitle">
+              <div class="card-body">
+                <h2 id="contactLensSelectionTitle" class="h5 card-title mb-4"><i class="bi bi-eyeglasses"></i> Contact Lens Selection</h2>
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <h6>Right Eye</h6>
+                    <div class="mb-2">
+                      <label class="form-label">Manufacturer</label>
+                      <div class="d-flex flex-wrap gap-2 mb-2">
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="right" data-manufacturer="Alcon">Alcon</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="right" data-manufacturer="B&L">B&L</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="right" data-manufacturer="Cooper">Cooper</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="right" data-manufacturer="Vistakon">Vistakon</button>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label class="form-label" for="right-eye-brand">Brand</label>
+                      <div id="right-eye-dropdown"></div>
+                    </div>
+                    <div class="text-center mb-3">
+                      <button type="button" class="btn btn-outline-primary copy-btn" id="copy-to-left-eye" title="Copy Right Eye to Left Eye">
+                        <i class="bi bi-arrow-right-circle"></i> Copy Right Eye to Left Eye
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Left Eye</h6>
+                    <div class="mb-2">
+                      <label class="form-label">Manufacturer</label>
+                      <div class="d-flex flex-wrap gap-2 mb-2">
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="left" data-manufacturer="Alcon">Alcon</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="left" data-manufacturer="B&L">B&L</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="left" data-manufacturer="Cooper">Cooper</button>
+                        <button class="btn btn-outline-secondary manufacturer-btn" data-eye="left" data-manufacturer="Vistakon">Vistakon</button>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label class="form-label" for="left-eye-brand">Brand</label>
+                      <div id="left-eye-dropdown"></div>
+                    </div>
+                    <div class="mb-2 text-center">
+                      <button type="button" class="supply-btn me-2" id="year-supply-btn">Year Supply</button>
+                      <button type="button" class="supply-btn me-2" id="six-month-btn">6 Months</button>
+                      <button type="button" class="supply-btn me-2" id="one-box-btn">1 Box</button>
+                      <button type="button" class="supply-btn" id="clear-supply-btn">Clear</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Pricing Summary -->
+          <section class="col-12 print-section">
+            <div class="card h-100 shadow-sm" aria-labelledby="pricingSummaryTitle">
+              <div class="card-body">
+                <h2 id="pricingSummaryTitle" class="h5 card-title mb-4"><i class="bi bi-calculator"></i> Pricing Summary</h2>
+                <div class="pricing-summary">
+                  <!-- Exam Details -->
+                  <div class="mb-4 section-block">
+                    <div class="fw-bold mb-2">Exam Details</div>
+                    <div class="d-flex justify-content-between mb-1"><span>Comprehensive Exam Copay</span><span id="examCopay">$0.00</span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>Fitting Fee Copay</span><span id="clExam">$0.00</span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>Retinal Imaging</span><span id="retinalImage">$0.00</span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>I&amp;R Training</span><span id="irTraining">$0.00</span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>Additional Fees</span><span id="additionalFeesDisplay">$0.00</span></div>
+                    <div class="d-flex justify-content-between fw-bold border-top pt-2 mt-2"><span>Exam Subtotal</span><span id="examDetailsSubtotal">$0.00</span></div>
+                  </div>
+                  <hr class="section-divider">
+                  <!-- Contact Lens Details -->
+                  <div class="mb-4 section-block">
+                    <div class="fw-bold mb-2">Contact Lens Details</div>
+                    <div class="d-flex justify-content-between mb-1"><span>Right Eye <span id="brand1">(Not selected)</span></span><span><span id="price1">$0.00</span> × <span id="boxes1">0</span></span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>Left Eye <span id="brand2">(Not selected)</span></span><span><span id="price2">$0.00</span> × <span id="boxes2">0</span></span></div>
+                    <div class="d-flex justify-content-between fw-bold border-top pt-2 mt-2"><span>Contact Lens Subtotal</span><span id="oopContacts">$0.00</span></div>
+                  </div>
+                  <hr class="section-divider">
+                  <!-- Deductions and Discounts -->
+                  <div class="mb-4 section-block">
+                    <div class="fw-bold mb-2">Deductions and Discounts</div>
+                    <div class="d-flex justify-content-between mb-1"><span>Contact Lens Allowance</span><span id="contactLensAllowanceDisplay">-$0.00</span></div>
+                    <div class="d-flex justify-content-between mb-1"><span>Discounts Applied</span><span id="additionalSavingsDisplay">-$0.00</span></div>
+                    <div class="d-flex justify-content-between fw-bold border-top pt-2 mt-2"><span>Deductions Subtotal</span><span id="deductionsSubtotal">-$0.00</span></div>
+                  </div>
+                  <hr class="section-divider">
+                  <!-- Rebate -->
+                  <div class="mb-4 section-block">
+                    <div class="fw-bold mb-2">Rebate</div>
+                    <div class="d-flex justify-content-between mb-1"><span id="rebateSupply">(Insert year or 6 months) supply of (insert Brand name)</span><span id="rebateValue"></span></div>
+                    <div class="d-flex justify-content-between fw-bold border-top pt-2 mt-2"><span>Final Cost per Box after Rebate</span><span id="finalCostPerBox">$0.00</span></div>
+                  </div>
+                  <!-- Final Out-of-Pocket Cost -->
+                  <div class="final-oop-card p-3 rounded-3 text-center mt-4" style="background:#f3fdf6;">
+                    <span class="fw-bold fs-5">Final Out-of-Pocket Cost</span>
+                    <span class="fw-bold fs-5 ms-3 text-success" id="finalOOP">$0.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Patient Agreement -->
+          <section class="col-12 print-section">
+            <div class="card h-100 shadow-sm" aria-labelledby="patientAgreementTitle">
+              <div class="card-body">
+                <h2 id="patientAgreementTitle" class="h5 card-title mb-4"><i class="bi bi-file-earmark-text"></i> Patient Agreement</h2>
+                <div class="alert alert-warning" role="alert">
+                  <strong>Refund Policy Agreement:</strong> I understand and agree that contact lenses are a medical device and, once dispensed, cannot be returned or refunded for health and safety reasons. All sales are final.
+                </div>
+                <form>
+                  <div class="mb-3">
+                    <label for="patient-signature" class="form-label">Patient Signature</label>
+                    <div class="signature-container" style="border:1px solid #ccc; border-radius:8px; width:100%; height:150px; background:#fff; touch-action: none;">
+                      <canvas id="signature-canvas" height="150" style="width:100%; height:100%; display:block;"></canvas>
+                    </div>
+                  </div>
+                  <div class="text-center mb-3">
+                    <button type="button" class="btn btn-outline-secondary me-2" id="clear-signature-btn">Clear Signature</button>
+                    <button type="button" class="btn btn-outline-secondary" id="print-signature-btn">Print</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <!-- Bootstrap 5 JS Bundle (for components if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="sheets.js"></script>
+  </body>
+</html>

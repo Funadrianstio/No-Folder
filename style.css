@@ -1,0 +1,685 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #fff;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #fff;
+  color: #222;
+  min-height: 100vh;
+}
+
+h1, h2, h5, h6 {
+  color: #222;
+}
+
+.card {
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: none;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.btn.toggle-btn.selected,
+.btn.manufacturer-btn.selected {
+  background-color: #a0b2ca;
+  color: #fff;
+  border-color: #a0b2ca;
+}
+
+.btn.toggle-btn,
+.btn.manufacturer-btn {
+  min-width: 90px;
+  margin-bottom: 0.25rem;
+}
+
+.btn-group .btn {
+  border-radius: 0.5rem !important;
+}
+
+input[type="number"],
+input[type="text"],
+select.form-control {
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.table {
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  font-size: 1rem;
+}
+
+.table thead th {
+  background: #f4f8ff;
+  color: #222;
+  border-bottom: 2px solid #e0e6ed;
+}
+
+.table-bordered > :not(caption) > * > * {
+  border-color: #e0e6ed;
+}
+
+.alert-warning {
+  background: #fffbe6;
+  border-color: #ffe58f;
+  color: #664d03;
+  border-radius: 0.5rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+  .card { margin-bottom: 1.5rem; }
+}
+
+@media (max-width: 575.98px) {
+  .card { padding: 0.5rem; }
+  .table th, .table td { font-size: 0.95rem; }
+}
+
+/* Focus styles for accessibility */
+.btn:focus, .form-control:focus {
+  outline: 2px solid #a0b2ca;
+  outline-offset: 2px;
+
+}
+
+/* Hide old dark theme and unused classes */
+html, .tables-wrapper, .exam-fees, .fitting-fees, .fitting-type, .brand-section, .brand-wrapper, .eye-section, .button-container, .form-section, .form-subsection, .brand, .manufacter-label, .Eye-Selection, .fitting-fees-title, .exam-fees-title, .table-label, .left-table-label, .table-label-one {
+  all: unset;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white; /* for visibility on dark background */
+}
+
+/* Container to hold two tables side-by-side */
+.tables-wrapper {
+  display: flex;
+  justify-content: center;  /* center tables horizontally */
+  gap: 2rem;
+  max-width: 1000px;   /* max width for container */
+  margin: 0 auto;      /* center container horizontally */
+  flex-wrap: nowrap;   /* keep tables side-by-side */
+}
+
+/* rest unchanged */
+table {
+  width: 700px;           /* fixed width */
+  max-width: 700px;       /* prevent stretching */
+  border-collapse: collapse;
+  background-color: #000000; /* green background */
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 1rem;
+  border: 1px solid #000000; /* darker green border */
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+th {
+  background-color: #a0b2ca; /* darker green header */
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.846);
+}
+
+tr:nth-child(even) {
+  background-color: #a0b2ca; /* lighter green even rows */
+  color: white;
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffff; /* main green odd rows */
+  color: white;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.form-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-section label {
+  width: 160px; /* fixed label width */
+  margin-right: 1rem;
+  text-align: right;
+  font-weight: bold;
+  color: white; /* assuming dark bg */
+}
+
+.form-section input[type="number"] {
+  flex: 1;  /* take remaining horizontal space */
+  max-width: 250px; /* or whatever fixed width you want */
+  padding: 0.4rem 0.6rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.exam-fees, .fitting-fees, .fitting-type {
+  flex: 1;
+  min-width: 300px;
+}
+
+.brand-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.eye-section {
+  background-color: #000000;
+  padding: 1rem;
+  border-radius: px;
+  color: rgb(255, 255, 255); /* to keep text readable */
+  width: 450px;
+}
+
+.eye-section label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  padding-left: 50px;
+}
+
+/* Button styles updated for alignment and shape */
+.btn.toggle-btn {
+  min-width: 90px;
+  margin-bottom: 0.25rem;
+  background-color: #f5f5f5;
+  color: #000000;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn.toggle-btn:hover {
+  background-color: #e8e8e8;
+  border-color: #a0b2ca;
+}
+
+.btn.toggle-btn.selected {
+  background-color: #a0b2ca !important;
+  color: white !important;
+  border-color: #a0b2ca !important;
+
+}
+
+/* Focus styles for accessibility */
+.btn.toggle-btn:focus {
+  outline: 2px solid #a0b2ca;
+  outline-offset: 2px;
+  box-shadow: #a0b2ca;
+}
+
+/* Remove old toggle button styles that might conflict */
+.toggle-btn {
+  min-width: 72px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  transition: all 0.2s ease-in-out;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.toggle-btn:hover {
+  background-color: #e9ecef;
+  border-color: #a0b2ca;
+  color: #a0b2ca;
+}
+
+.toggle-btn.selected {
+  background-color: #a0b2ca;
+  color: white;
+  border-color: #a0b2ca;
+  box-shadow: #a0b2ca;
+}
+
+.toggle-btn:focus {
+  box-shadow: #a0b2ca;
+  outline: none;
+}
+
+/* Ensure button groups are independent */
+.btn-group {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  flex: 1;
+  min-width: 72px;
+  text-align: center;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+.fitting-fees-title,
+.exam-fees-title {
+  text-align: center;
+  color: white; /* for visibility on dark background */
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+button {
+  border-radius: 5px;
+  /* other styles */
+}
+
+/* Dropdown styling to match buttons */
+select {
+  width: 265px;           /* fixed width */
+  height: 30px;           /* match button height */
+  padding: 0.5rem;        /* inside spacing */
+  border-radius: 5px;     /* same rounded corners as buttons */
+  border: 2px solid #010101; /* consistent border */
+  background-color: white;
+  font-size: 75%;
+  line-height: 1.2;
+  appearance: none;       /* remove default arrow styling for consistency */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+/* Optional: hide default dropdown arrow in IE */
+select::-ms-expand {
+  display: none;
+}
+
+.manufacturer-btn {
+  background-color: #f5f5f5;  /* 👈 Change this to your desired base color */
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.manufacturer-btn:hover {
+  background-color: #ffffffc3;
+}
+
+.manufacturer-btn.selected {
+   background-color: #a0b2ca;
+  color: white;
+  border: 2px solid #a0b2ca;
+}
+
+/* Shared horizontal layout for label + dropdown on same line */
+.form-subsection {
+  margin-bottom: 1rem;
+}
+
+.form-subsection.horizontal-align {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-subsection.horizontal-align label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.brand {
+  padding-bottom: 15px;
+  padding-left: 50px;
+}
+
+.manufacter-label {
+  padding-left: 160px;
+  padding-bottom: 15px;
+}
+
+.Eye-Selection {
+  padding-left: 155px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.fitting-fees{
+  padding-top: 55px;
+}
+
+.table-label {
+  color: #ffffff;
+}
+
+.left-table-label{
+  color: #ffffff;
+}
+
+.table-label-one {
+  color: #000000;
+  width: 215px;
+}
+
+/* Login Overlay Styles */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-container {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: #a0b2ca;
+    max-width: 400px;
+    width: 90%;
+}
+
+.login-box h2 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.login-box p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Hide main content when not authenticated */
+.d-none {
+    display: none !important;
+}
+
+/* Contact Lens Selection Styles */
+#right-eye-dropdown,
+#left-eye-dropdown {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#right-eye-dropdown select,
+#left-eye-dropdown select {
+    width: 90%;
+    max-width: calc(100% - 1rem);
+    height: 38px;
+    padding: 0;
+    border-radius: 0.25rem;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    font-size: 0.875rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    text-align: center;
+    text-align-last: center;
+    line-height: 38px;
+    padding-right: 2rem;
+    padding-left: 0.75rem;
+}
+
+/* For Firefox */
+#right-eye-dropdown select option,
+#left-eye-dropdown select option {
+    text-align: center;
+    line-height: 38px;
+    height: 38px;
+}
+
+/* Manufacturer buttons container */
+.d-flex.flex-wrap.gap-2.mb-2 {
+    width: 100%;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+/* Manufacturer button styles */
+.manufacturer-btn {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    transition: all 0.2s ease-in-out;
+}
+
+.manufacturer-btn:hover {
+    background-color: #e9ecef;
+    border-color: #a0b2ca;
+    color: #a0b2ca;
+}
+
+.manufacturer-btn.selected {
+    background-color: #a0b2ca;
+    color: white;
+    border-color: #a0b2ca;
+    box-shadow: #a0b2ca;
+}
+
+.manufacturer-btn:focus {
+    box-shadow: #a0b2ca;
+    outline: none;
+}
+
+/* Remove old dropdown styles */
+select {
+    all: unset;
+}
+
+/* Copy Right Eye to Left Eye button custom style */
+.copy-btn {
+  background-color: #a0b2ca !important;
+  color: #fff !important;
+  border: 1.5px solid #a0b2ca !important;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.copy-btn:hover, .copy-btn:focus {
+  background-color: #8c9db8 !important;
+  color: #fff !important;
+  border-color: #8c9db8 !important;
+  outline: none;
+}
+
+.supply-btn {
+  background-color: #f5f5f5;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 90px;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+.supply-btn:hover {
+  background-color: #ffffffc3;
+}
+.supply-btn.selected {
+  background-color: #a0b2ca;
+  color: white;
+  border: 2px solid #a0b2ca;
+}
+.supply-btn:focus {
+  outline: 2px solid #a0b2ca;
+  outline-offset: 2px;
+}
+
+/* Hide number input spinners/arrows for all browsers */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.signature-container {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  touch-action: none;
+  display: block;
+}
+#signature-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+@media print {
+  @page {
+    size: 8.5in 13in;
+    margin: 0;
+  }
+  body * {
+    display: none !important;
+  }
+  .print-section:nth-last-of-type(2), .print-section:nth-last-of-type(2) * {
+    display: block !important;
+    visibility: visible !important;
+  }
+  .print-section:nth-last-of-type(2) {
+    transform: scale(0.75);
+    transform-origin: top left;
+    width: 133.33%;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    position: relative !important;
+    left: 0;
+    top: 0;
+  }
+}
+
+/* Fitting Fee Button Styles */
+.fitting-fee-btn {
+  min-width: 90px;
+  margin-bottom: 0.25rem;
+  border-radius: 0.5rem !important;
+  background-color: #f5f5f5;
+  color: #000;
+  border: 1px solid #dee2e6;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  cursor: pointer;
+}
+.fitting-fee-btn:hover {
+  background-color: #e9ecef;
+  border-color: #a0b2ca;
+  color: #a0b2ca;
+}
+.fitting-fee-btn.selected {
+  background-color: #a0b2ca;
+  color: #fff;
+  border-color: #a0b2ca;
+}
+.fitting-fee-btn:focus {
+  outline: 2px solid #a0b2ca;
+  outline-offset: 2px;
+}
+
+#fitting-fee-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.section-divider {
+  border: none;
+  border-top: 2px solid #e0e6ed;
+  margin: 1.5rem 0;
+}
+
+.section-block {
+  padding: 1.25rem 0.5rem;
+  background: #f9fafd;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-summary .fw-bold.mb-2 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.pricing-summary .mb-4 {
+  margin-bottom: 2rem !important;
+}

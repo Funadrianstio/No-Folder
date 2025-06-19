@@ -1,0 +1,25 @@
+{
+  "name": "contact-lens-pricing-tool",
+  "version": "1.0.0",
+  "description": "Secure Contact Lens Pricing Tool with Vercel serverless functions",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for static files'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "contact-lens",
+    "pricing",
+    "vercel",
+    "serverless"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 
